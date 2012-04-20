@@ -106,19 +106,15 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            try:
-                elements = finder(selector)
-                if elements:
-                    count_visible_elements = 0
-                    for element in elements:
-                        if not element.visible:
-                            break
-                        else:
-                            count_visible_elements += 1
-                    if count_visible_elements == len(elements):
-                        return True
-            except ElementNotVisibleException:
-                continue
+            elements = finder(selector)
+            if elements:
+                for element in elements:
+                    try:
+                        if element.visible:
+                            return True
+                    except (ElementNotVisibleException, StaleElementReferenceException):
+                        pass
+
         return False
 
     # return True if one element is not visible
@@ -127,14 +123,21 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            try:
-                elements = finder(selector)
-                if elements:
-                    for element in elements:
-                        if not element.visible:
-                            return True
-            except (ElementNotVisibleException, StaleElementReferenceException) as e:
+            elements = finder(selector)
+            if not elements:
                 return True
+
+            visible_elements = []
+            for element in elements:
+                try:
+                    if element.visible:
+                        visible_elements.append(element)
+                except (ElementNotVisibleException, StaleElementReferenceException):
+                    pass
+
+            if len(visible_elements) == 0:
+                return True
+
         return False
 
     def is_element_present_by_css(self, css_selector, wait_time=None):

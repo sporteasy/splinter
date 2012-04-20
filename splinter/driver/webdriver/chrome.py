@@ -22,6 +22,8 @@ class WebDriver(BaseWebDriver):
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
 
+        options.add_argument("--disable-translate")
+
         if incognito:
             options.add_argument("--incognito")
 

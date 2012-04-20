@@ -15,6 +15,8 @@ class WebDriver(BaseWebDriver):
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
 
+        options.add_argument("--disable-translate")
+
         self.driver = Chrome(chrome_options=options)
         self._unpatch_subprocess()
 

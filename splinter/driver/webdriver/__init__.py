@@ -269,7 +269,7 @@ class BaseWebDriver(DriverAPI):
                 continue
         return False
 
-    # return False if all the found elements are not visible or don't exist
+    # return True if one element is not visible
     def is_element_not_visible(self, finder, selector, wait_time=None):
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
@@ -278,16 +278,11 @@ class BaseWebDriver(DriverAPI):
             try:
                 elements = finder(selector)
                 if elements:
-                    count_invisible_elements = 0
                     for element in elements:
-                        if element.visible:
-                            break
-                        else:
-                            count_invisible_elements += 1
-                    if count_invisible_elements == len(elements):
-                        return True
+                        if not element.visible:
+                            return True
             except (ElementNotVisibleException, StaleElementReferenceException) as e:
-                continue
+                return True
         return False
 
     def is_element_present_by_css(self, css_selector, wait_time=None):

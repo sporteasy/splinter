@@ -11,7 +11,7 @@ import sys
 import os
 from contextlib import contextmanager
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
@@ -248,6 +248,48 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
 
+    # return True if all found elements are visible
+    def is_element_visible(self, finder, selector, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            try:
+                elements = finder(selector)
+                if elements:
+                    count_visible_elements = 0
+                    for element in elements:
+                        if not element.visible:
+                            break
+                        else:
+                            count_visible_elements += 1
+                    if count_visible_elements == len(elements):
+                        return True
+            except ElementNotVisibleException:
+                continue
+        return False
+
+    # return False if all the found elements are not visible or don't exist
+    def is_element_not_visible(self, finder, selector, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            try:
+                elements = finder(selector)
+                if elements:
+                    count_invisible_elements = 0
+                    for element in elements:
+                        if element.visible:
+                            break
+                        else:
+                            count_invisible_elements += 1
+                    if count_invisible_elements == len(elements):
+                        return True
+            except (ElementNotVisibleException, StaleElementReferenceException) as e:
+                continue
+        return False
+
     def is_element_present_by_css(self, css_selector, wait_time=None):
         return self.is_element_present(self.find_by_css, css_selector, wait_time)
 
@@ -289,6 +331,42 @@ class BaseWebDriver(DriverAPI):
 
     def is_element_not_present_by_id(self, id, wait_time=None):
         return self.is_element_not_present(self.find_by_id, id, wait_time)
+
+    def is_element_visible_by_css(self, css_selector, wait_time=None):
+        return self.is_element_visible(self.find_by_css, css_selector, wait_time)
+
+    def is_element_not_visible_by_css(self, css_selector, wait_time=None):
+        return self.is_element_not_visible(self.find_by_css, css_selector, wait_time)
+
+    def is_element_visible_by_xpath(self, xpath, wait_time=None):
+        return self.is_element_visible(self.find_by_xpath, xpath, wait_time)
+
+    def is_element_not_visible_by_xpath(self, xpath, wait_time=None):
+        return self.is_element_not_visible(self.find_by_xpath, xpath, wait_time)
+
+    def is_element_visible_by_tag(self, tag, wait_time=None):
+        return self.is_element_visible(self.find_by_tag, tag, wait_time)
+
+    def is_element_not_visible_by_tag(self, tag, wait_time=None):
+        return self.is_element_not_visible(self.find_by_tag, tag, wait_time)
+
+    def is_element_visible_by_name(self, name, wait_time=None):
+        return self.is_element_visible(self.find_by_name, name, wait_time)
+
+    def is_element_not_visible_by_name(self, name, wait_time=None):
+        return self.is_element_not_visible(self.find_by_name, name, wait_time)
+
+    def is_element_visible_by_value(self, value, wait_time=None):
+        return self.is_element_visible(self.find_by_value, value, wait_time)
+
+    def is_element_not_visible_by_value(self, value, wait_time=None):
+        return self.is_element_not_visible(self.find_by_value, value, wait_time)
+
+    def is_element_visible_by_id(self, id, wait_time=None):
+        return self.is_element_visible(self.find_by_id, id, wait_time)
+
+    def is_element_not_visible_by_id(self, id, wait_time=None):
+        return self.is_element_not_visible(self.find_by_id, id, wait_time)
 
     def get_alert(self):
         return AlertElement(self.driver.switch_to_alert())

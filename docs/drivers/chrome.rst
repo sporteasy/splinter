@@ -1,3 +1,7 @@
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 .. meta::
     :description: How to use splinter with Chrome webdriver
     :keywords: splinter, python, tutorial, how to install, installation, chrome, selenium
@@ -45,19 +49,29 @@ downloaded file in a directory in the ``PATH`` (e.g. ``/usr/bin``). You can also
 and add that directory to the ``PATH``:
 
 
-Mac OSX
-=======
+Mac OS X
+========
 
 .. highlight:: bash
 
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_mac_19.0.1068.0.zip
-    $ unzip chromedriver_mac_19.0.1068.0.zip
+    $ wget https://chromedriver.googlecode.com/files/chromedriver_mac_20.0.1133.0.zip
+    $ unzip chromedriver_mac_20.0.1133.0.zip
     $ mkdir -p $HOME/bin
     $ mv chromedriver $HOME/bin
     $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
+
+Or, if you use `Homebrew <http://mxcl.github.com/homebrew/>`_, just do:
+
+.. highlight:: bash
+
+::
+
+    $ brew install chromedriver
+
+This will stall the latest chromedriver and link it to your ``/usr/local/bin``.
 
 
 Linux 32bits
@@ -68,8 +82,8 @@ Linux 32bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux32_19.0.1068.0.zip
-    $ unzip chromedriver_linux32_19.0.1068.0.zip
+    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux32_20.0.1133.0.zip
+    $ unzip chromedriver_linux32_20.0.1133.0.zip
 
 
 Linux 64bits
@@ -80,8 +94,8 @@ Linux 64bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux64_19.0.1068.0.zip
-    $ unzip chromedriver_linux64_19.0.1068.0.zip
+    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux64_20.0.1133.0.zip
+    $ unzip chromedriver_linux64_20.0.1133.0.zip
 
 
 Linux (common steps for 32 and 64bits)

@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+from __future__ import with_statement
+
 from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
 from splinter.element_list import ElementList
@@ -45,6 +53,12 @@ class ZopeTestBrowser(DriverAPI):
 
         self._cookie_manager = CookieManager(self._browser.cookies)
         self._last_urls = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        pass
 
     def visit(self, url):
         self._browser.open(url)
@@ -241,7 +255,7 @@ class ZopeTestBrowserElement(ElementAPI):
 
     @property
     def value(self):
-        return self._element.text
+        return self._element.text_content()
 
     @property
     def text(self):

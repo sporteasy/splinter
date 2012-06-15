@@ -1,3 +1,7 @@
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 all: test
 
 clean:
@@ -17,7 +21,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.20.0
+	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.21.3
 
 unittest2:
 	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2

@@ -1,3 +1,7 @@
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 .. meta::
     :description: Documentation for splinter, an open source tool for testing web applications
     :keywords: splinter, python, tutorial, documentation, web application, tests, atdd, tdd, acceptance tests
@@ -27,6 +31,7 @@ Basic browsing and interactions
 * :doc:`Interacting with elements and forms </elements-in-the-page>`
 * :doc:`Verify the presence of texts and elements in a page, with matchers </matchers>`
 * :doc:`Cookies manipulation </cookies>`
+* :doc:`Taking screenshots </:sreenshots>`
 
 JavaScript support
 ------------------

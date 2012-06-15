@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 from splinter.exceptions import ElementDoesNotExist
 
 
@@ -15,12 +21,11 @@ class ElementList(list):
         >>> element_list[0] # raises ElementDoesNotExist
     """
 
-    def __init__(self, list, context=None, driver=None, find_by=None, query=None):
+    def __init__(self, list, driver=None, find_by=None, query=None):
         """
         Creates the list.
         """
         self.extend(list)
-        self.context = context
         self.driver = driver
         self.find_by = find_by
         self.query = query
@@ -48,15 +53,6 @@ class ElementList(list):
             >>> assert element_list[-1] == element_list.last
         """
         return self[-1]
-
-    def find_by_css(self, element):
-        """
-        Performs a find on the page using the provided selector.
-
-        For more details, check the docs for :meth:`DriverAPI.find_by_css <splinter.driver.DriverAPI.find_by_css>`
-        method.
-        """
-        return self.driver.find_by_css(element)
 
     def is_empty(self):
         """

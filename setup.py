@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 from setuptools import setup, find_packages
 
 README = open('README.rst').read()
@@ -10,6 +16,6 @@ setup(name='splinter',
       author_email='andrewsmedina@gmail.com',
       packages=find_packages(exclude=['docs', 'tests', 'samples']),
       include_package_data=True,
-      install_requires=['selenium==2.20.0', 'lxml>=2.3.1,<2.4.0'],
+      install_requires=['selenium==2.21.3', 'lxml>=2.3.1,<2.4.0'],
       tests_require=['coverage', 'flask'],
       )

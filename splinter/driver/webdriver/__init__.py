@@ -1,5 +1,10 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+from __future__ import with_statement
 import logging
 import subprocess
 import time
@@ -49,6 +54,12 @@ class BaseWebDriver(DriverAPI):
     def _unpatch_subprocess(self):
         # cleaning up the house
         subprocess.Popen = self.old_popen
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.quit()
 
     @property
     def title(self):
@@ -259,10 +270,10 @@ class BaseWebDriver(DriverAPI):
         return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href, original_find="link by partial href", original_query=partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)], find_by="partial text", query=partial_text)
+        return self.find_by_xpath('//a[contains(text(), "%s")]' % partial_text, original_find="link by partial text", original_query=partial_text)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)], find_by="link by text", query=text)
+        return self.find_by_xpath('//a[text()="%s"]' % text, original_find="link by text", original_query=text)
 
     def find_by(self, finder, selector, original_find=None, original_query=None):
         elements = None
@@ -380,14 +391,10 @@ class WebDriverElement(ElementAPI):
         self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
-        value = self["value"]
-        if value:
-            return value
-        else:
-            return self._element.text
+        return self["value"] or self._element.text
 
     def _set_value(self, value):
-        if  self._element.get_attribute('type') != 'file':
+        if self._element.get_attribute('type') != 'file':
             self._element.clear()
         self._element.send_keys(value)
 

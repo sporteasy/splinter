@@ -19,7 +19,7 @@ class WebDriver(BaseWebDriver):
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
                  profile_preferences=None, fullscreen=False, wait_time=2,
-                 timeout=90, capabilities=None):
+                 timeout=90, capabilities=None, *args, **kwargs):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -54,4 +54,41 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManager(self.driver)
 
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(wait_time, *args, **kwargs)
+
+
+class WebDriverElement(BaseWebDriverElement):
+
+    def mouse_over(self):
+        """
+        Firefox doesn't support mouseover.
+        """
+        raise NotImplementedError("Firefox doesn't support mouse over")
+
+    def mouse_out(self):
+        """
+        Firefox doesn't support mouseout.
+        """
+        raise NotImplementedError("Firefox doesn't support mouseout")
+
+    def double_click(self):
+        """
+        Firefox doesn't support doubleclick.
+        """
+        raise NotImplementedError("Firefox doesn't support doubleclick")
+
+    def right_click(self):
+        """
+        Firefox doesn't support right click'
+        """
+        raise NotImplementedError("Firefox doesn't support right click")
+
+    def drag_and_drop(self, droppable):
+        """
+        Firefox doesn't support drag and drop
+        """
+        raise NotImplementedError("Firefox doesn't support drag an drop")
+
+    mouseover = mouse_over
+    mouseout = mouse_out
+>>>>>>> pass *args and **kwargs to BaseWebDriver.__init__()

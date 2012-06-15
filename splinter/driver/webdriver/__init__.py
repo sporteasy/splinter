@@ -157,7 +157,7 @@ class Windows(object):
 
 class BaseWebDriver(DriverAPI):
 
-    def __init__(self, wait_time=2):
+    def __init__(self, wait_time=2, *args, **kwargs):
         self.wait_time = wait_time
         self.status_code = None
 

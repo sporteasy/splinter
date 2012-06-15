@@ -16,7 +16,7 @@ class WebDriver(BaseWebDriver):
     # TODO: This constant belongs in selenium.webdriver.Remote
     DEFAULT_URL = 'http://127.0.0.1:4444/wd/hub'
 
-    def __init__(self, url=DEFAULT_URL, browser='firefox', wait_time=2, **ability_args):
+    def __init__(self, url=DEFAULT_URL, browser='firefox', wait_time=2, *args, **ability_args):
         browsername = browser.upper()
         # Handle case where user specifies IE with a space in it
         if browsername == 'INTERNET EXPLORER':
@@ -30,7 +30,7 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManager(self.driver)
 
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(wait_time, *args)
 
 
 class WebDriverElement(BaseWebDriverElement):

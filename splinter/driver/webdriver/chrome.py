@@ -15,7 +15,7 @@ class WebDriver(BaseWebDriver):
     driver_name = "Chrome"
 
     def __init__(self, options=None, user_agent=None, wait_time=2, fullscreen=False, incognito=False,
-                 **kwargs):
+                 *args, **kwargs):
 
         options = Options() if options is None else options
 
@@ -36,4 +36,4 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManager(self.driver)
 
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(wait_time, *args, **kwargs)

@@ -9,7 +9,7 @@ from splinter.cookie_manager import CookieManagerAPI
 
 class WebDriver(BaseWebDriver):
 
-    def __init__(self, server='localhost', port=4444):
+    def __init__(self, server='localhost', port=4444, *args, **kwargs):
         self.old_popen = subprocess.Popen
 
         self._patch_subprocess()
@@ -21,7 +21,7 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManagerAPI()
 
-        super(WebDriver, self).__init__()
+        super(WebDriver, self).__init__(*args, **kwargs)
 
 
 class WebDriverElement(BaseWebDriverElement):

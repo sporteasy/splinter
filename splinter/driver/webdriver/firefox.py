@@ -10,7 +10,7 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 
 class WebDriver(BaseWebDriver):
 
-    def __init__(self, profile=None, extensions=None, user_agent=None):
+    def __init__(self, profile=None, extensions=None, user_agent=None, *args, **kwargs):
         self.old_popen = subprocess.Popen
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -31,7 +31,7 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManager(self.driver)
 
-        super(WebDriver, self).__init__()
+        super(WebDriver, self).__init__(*args, **kwargs)
 
 
 class WebDriverElement(BaseWebDriverElement):

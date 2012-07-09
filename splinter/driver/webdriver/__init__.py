@@ -75,7 +75,6 @@ class BaseWebDriver(DriverAPI):
 
     def visit(self, url):
         self.connect(url)
-        self.ensure_success_response()
         self.driver.get(url)
 
     def back(self):

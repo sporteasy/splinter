@@ -20,7 +20,8 @@ class Options(chrome_options.Options):
 
     def to_capabilities(self):
         capabilities = super(Options, self).to_capabilities()
-        capabilities['chromeOptions']['prefs'] = self._prefs
+        if self._prefs:
+            capabilities['chromeOptions']['prefs'] = self._prefs
         return capabilities
 
 

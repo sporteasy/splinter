@@ -39,6 +39,10 @@ class WebDriver(BaseWebDriver):
             for key, value in profile_preferences.items():
                 firefox_profile.set_preference(key, value)
 
+        if 'accepted_languages' in kwargs:
+            firefox_profile.set_preference('intl.accept_languages', kwargs['accepted_languages'])
+            del kwargs['accepted_languages']
+
         if extensions:
             for extension in extensions:
                 firefox_profile.add_extension(extension)

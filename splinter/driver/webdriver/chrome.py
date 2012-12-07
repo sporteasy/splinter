@@ -13,6 +13,7 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 class Options(chrome_options.Options):
 
     def __init__(self):
+        super(Options, self).__init__()
         self._prefs = {}
 
     def add_pref(self, key, value):

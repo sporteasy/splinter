@@ -13,6 +13,7 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 class Options(chrome_options.Options):
 
     def __init__(self):
+        super(Options, self).__init__()
         self._prefs = {}
 
     def add_pref(self, key, value):
@@ -40,7 +41,11 @@ class WebDriver(BaseWebDriver):
             options.add_pref('intl.accept_languages', kwargs['accepted_languages'])
             del kwargs['accepted_languages']
 
-        self.driver = Chrome(chrome_options=options)
+        desired_capabilities = {
+            'verbose': 'true'
+        }
+
+        self.driver = Chrome(chrome_options=options, desired_capabilities=desired_capabilities)
         self._unpatch_subprocess()
 
         self.element_class = WebDriverElement

@@ -33,6 +33,7 @@ class WebDriver(BaseWebDriver):
 
         options = Options()
         options.add_argument("--disable-translate")
+        options.add_argument("--disable-notifications")
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)

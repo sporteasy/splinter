@@ -36,6 +36,7 @@ class WebDriver(BaseWebDriver):
         options = Options() if options is None else options
         options.add_argument("--disable-translate")
         options.add_argument("--disable-notifications")
+        options.add_argument("--dns-prefetch-disable")
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)

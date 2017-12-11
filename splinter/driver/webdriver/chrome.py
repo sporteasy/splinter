@@ -19,6 +19,13 @@ class WebDriver(BaseWebDriver):
 
         options = Options() if options is None else options
 
+        options.add_argument("--disable-infobars")
+        options.add_argument("--disable-notifications")
+
+        if 'accepted_languages' in kwargs:
+            options.add_experimental_option("prefs", {"intl.accept_languages": kwargs['accepted_languages']})
+            del kwargs['accepted_languages']
+
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
 

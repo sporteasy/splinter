@@ -30,6 +30,10 @@ class WebDriver(BaseWebDriver):
         firefox_capabilities = DesiredCapabilities().FIREFOX
         firefox_capabilities["marionette"] = True
 
+        if 'accepted_languages' in kwargs:
+            firefox_profile.set_preference('intl.accept_languages', kwargs['accepted_languages'])
+            del kwargs['accepted_languages']
+
         if capabilities:
             for key, value in capabilities.items():
                 firefox_capabilities[key] = value
